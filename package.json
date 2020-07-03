@@ -1,0 +1,20 @@
+{
+  "name": "node-red-contrib-fast-stat",
+  "version": "1.0.0",
+  "description": "get data from node-red",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap --reporter=spec ./**/*.test.js"
+  },
+  "devDependencies": {
+    "tap": "^14.10.6",
+    "should": "^13.2.3"
+  },
+  "author": "",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "fast_stat": "./src/index.js"
+    }
+  }
+}
