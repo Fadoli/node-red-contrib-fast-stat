@@ -14,10 +14,68 @@ class statsArray {
         this.n = 0;
         this.q = 0;
         this.min = Number.MAX_VALUE;
+        this.minIndex = undefined;
         this.max = -Number.MAX_VALUE;
+        this.maxIndex = undefined;
         this.sum = 0;
         this.mean = 0;
     }
+
+    computeMin() {
+        let iteration;
+        // Go the other way around so that we have most chance to find the min 'farther' away from our position
+        let iterator = this.index;
+        const previousMin = this.min;
+        let min = this.max;
+        let minIndex;
+        for (iteration = 0; iteration < this.n; iteration++) {
+            iterator--;
+            if (iterator < 0) {
+                iterator += this.size;
+            }
+            const element = this.array[iterator];
+            if (element < min) {
+                if (element === previousMin) {
+                    // Don't look for another one, this was the previous min
+                    minIndex = iterator;
+                    min = element;
+                    break;
+                }
+                minIndex = iterator;
+                min = element;
+            }
+        }
+        this.minIndex = minIndex;
+        this.min = min;
+    }
+    computeMax() {
+        let iteration;
+        // Go the other way around so that we have most chance to find the min 'farther' away from our position
+        let iterator = this.index;
+        const previousMax = this.max;
+        let max = this.min;
+        let maxIndex;
+        for (iteration = 0; iteration < this.n; iteration++) {
+            iterator--;
+            if (iterator < 0) {
+                iterator += this.size;
+            }
+            const element = this.array[iterator];
+            if (element < max) {
+                if (element === previousMax) {
+                    // Don't look for another one, this was the previous max
+                    maxIndex = iterator;
+                    max = element;
+                    break;
+                }
+                maxIndex = iterator;
+                max = element;
+            }
+        }
+        this.maxIndex = maxIndex;
+        this.max = max;
+    }
+
 
     /**
      * 
@@ -34,11 +92,24 @@ class statsArray {
             if (this.q < 0) {
                 this.q = 0;
             }
+        } else {
+            this.n++;
         }
-        this.min = Math.min(this.min, num);
-        this.max = Math.max(this.max, num);
-        this.n = Math.min(this.n + 1, this.size);
-        
+        if (num <= this.min) {
+            this.minIndex = this.index;
+            this.min = num;
+        } else if (this.minIndex === this.index) {
+            console.log("Lost min :'(");
+            this.computeMin();
+        }
+        if (num >= this.max) {
+            this.maxIndex = this.index;
+            this.max = num;
+        } else if (this.maxIndex === this.index) {
+            console.log("Lost max :'(");
+            this.computeMax();
+        }
+
         this.sum += num;
         const prevMean = this.mean;
         this.mean = this.sum / this.n;

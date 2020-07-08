@@ -40,7 +40,7 @@ describe("statsArray", () => {
         stat.getStats().should.eql({ n: 10, min: -1, max: 1, sum: 0, mean: 0, variance: 1, standard_deviation: 1 });
     });
 
-    it('Compute data on the go : and correctly', function () {
+    it('Compute data on the go : and correctly (no over-write)', function () {
         const array = [];
         const SIZE = 42;
         let qt = SIZE;
@@ -63,7 +63,7 @@ describe("statsArray", () => {
     });
 
 
-    it('Compute data on the go : and correctly', function () {
+    it('Compute data on the go : and correctly (with over-write)', function () {
         const array = [];
         const SIZE = 42;
         let qt = SIZE;
