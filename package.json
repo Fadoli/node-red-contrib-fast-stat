@@ -4,11 +4,10 @@
   "description": "get data from node-red",
   "main": "index.js",
   "scripts": {
-    "test": "tap --reporter=spec ./**/*.test.js"
+    "test": "node ./test/statsArray.test.js"
   },
   "devDependencies": {
-    "tap": "^14.10.6",
-    "should": "^13.2.3"
+    "zora": "^4.0.1"
   },
   "author": "",
   "license": "ISC",
