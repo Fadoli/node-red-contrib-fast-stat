@@ -57,7 +57,7 @@ test("statsArray", (t) => {
         // t.test is possible that due to how t.test is computed (incrementaly) variance changes a tad
         // This means we have to reduce the number of digt.test that matters
         const res1 = applyPrecision(stat1.getStats());
-        const res2 = applyPrecision(stat1.compute());
+        const res2 = applyPrecision(stat1.recompute());
         t.deepEqual(res1, res2);
     });
 
@@ -85,7 +85,7 @@ test("statsArray", (t) => {
         // t.test is possible that due to how t.test is computed (incrementaly) variance changes a tad
         // This means we have to reduce the number of digt.test that matters
         const res1 = applyPrecision(stat1.getStats());
-        const res2 = applyPrecision(stat1.compute());
+        const res2 = applyPrecision(stat1.recompute());
         t.deepEqual(res1, res2);
 
         t.equal(res1.mean, 0);
