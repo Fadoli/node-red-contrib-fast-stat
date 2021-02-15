@@ -113,14 +113,12 @@ class statsArray {
             this.minIndex = this.index;
             this.min = num;
         } else if (this.minIndex === this.index) {
-            console.log("Lost min :'(");
             this.computeMin();
         }
         if (num >= this.max) {
             this.maxIndex = this.index;
             this.max = num;
         } else if (this.maxIndex === this.index) {
-            console.log("Lost max :'(");
             this.computeMax();
         }
 
