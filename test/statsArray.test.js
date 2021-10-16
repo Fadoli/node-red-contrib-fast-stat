@@ -18,6 +18,32 @@ test("statsArray", (t) => {
         t.deepEqual(stat.getStats(), null);
     });
 
+
+    t.test('should properly compute min', function () {
+        const stat = new StatsArray(2);
+        stat.append(1);
+        t.deepEqual(stat.getStats().min, 1);
+        stat.append(2);
+        t.deepEqual(stat.getStats().min, 1);
+        stat.append(3);
+        t.deepEqual(stat.getStats().min, 2);
+        stat.append(1);
+        t.deepEqual(stat.getStats().min, 1);
+    });
+    t.test('should properly compute max', function () {
+        const stat = new StatsArray(2);
+        stat.append(1);
+        t.deepEqual(stat.getStats().max, 1);
+        stat.append(2);
+        t.deepEqual(stat.getStats().max, 2);
+        stat.append(3);
+        t.deepEqual(stat.getStats().max, 3);
+        stat.append(2);
+        t.deepEqual(stat.getStats().max, 3);
+        stat.append(1);
+        t.deepEqual(stat.getStats().max, 2);
+    });
+
     t.test('Compute data on the go (2 size)', function () {
         const stat = new StatsArray(2);
         stat.append(1);
@@ -78,7 +104,6 @@ test("statsArray", (t) => {
         const res2 = applyPrecision(stat1.recompute());
         t.deepEqual(res1, res2);
     });
-
 
     t.test('Compute data on the go : and correctly (with over-wrt)', function () {
         const array = [];

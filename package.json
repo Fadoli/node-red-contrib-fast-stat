@@ -1,21 +1,23 @@
 {
-  "name": "node-red-contrib-fast-stat",
-  "version": "1.0.0",
-  "description": "get data from node-red",
-  "main": "index.js",
-  "scripts": {
-    "test": "node ./test/statsArray.test.js"
-  },
-  "devDependencies": {
-    "node-red": "^2.0.0",
-    "node-red-node-test-helper": "0.2.7",
-    "zora": "^4.1.0"
-  },
-  "author": "",
-  "license": "ISC",
-  "node-red": {
-    "nodes": {
-      "fast_stat": "./src/index.js"
+    "name": "@fadoli/node-red-fast-running-stats",
+    "version": "1.0.0",
+    "description": "get data from node-red",
+    "main": "index.js",
+    "scripts": {
+        "test": "c8 pta"
+    },
+    "devDependencies": {
+        "c8": "7.10.0",
+        "node-red": "^2.0.0",
+        "node-red-node-test-helper": "0.2.7",
+        "pta": "^1.0.0",
+        "zora": "^5.0.0"
+    },
+    "author": "",
+    "license": "ISC",
+    "node-red": {
+        "nodes": {
+            "fast_stat": "./src/index.js"
+        }
     }
-  }
 }

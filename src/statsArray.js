@@ -1,9 +1,8 @@
 const RECOMPUTE_COUNT = 25000;
 
 class statsArray {
-
     /**
-     * 
+     * @description Creates an instance of statsArray.
      * @param {number} [size=100]
      * @memberof statsArray
      */
@@ -31,12 +30,12 @@ class statsArray {
      * @description Internal function to recompute min value
      * @memberof statsArray
      */
-    computeMin() {
+    #computeMin() {
         let iteration;
         // Go the other way around so that we have most chance to find the min 'farther' away from our position
         let iterator = this.index;
         const previousMin = this.min;
-        let min = this.max;
+        let min = this.max + 1;
         let minIndex;
         for (iteration = 0; iteration < this.n; iteration++) {
             iterator--;
@@ -45,14 +44,12 @@ class statsArray {
             }
             const element = this.array[iterator];
             if (element < min) {
-                if (element === previousMin) {
-                    // Don't look for another one, this was the previous min
-                    minIndex = iterator;
-                    min = element;
-                    break;
-                }
                 minIndex = iterator;
                 min = element;
+                // Don't look for another one, this was the previous min
+                if (element === previousMin) {
+                    break;
+                }
             }
         }
         this.minIndex = minIndex;
@@ -62,12 +59,12 @@ class statsArray {
      * @description Internal function to recompute max value
      * @memberof statsArray
      */
-    computeMax() {
+    #computeMax() {
         let iteration;
         // Go the other way around so that we have most chance to find the min 'farther' away from our position
         let iterator = this.index;
         const previousMax = this.max;
-        let max = this.min;
+        let max = this.min - 1;
         let maxIndex;
         for (iteration = 0; iteration < this.n; iteration++) {
             iterator--;
@@ -75,15 +72,13 @@ class statsArray {
                 iterator += this.size;
             }
             const element = this.array[iterator];
-            if (element < max) {
-                if (element === previousMax) {
-                    // Don't look for another one, this was the previous max
-                    maxIndex = iterator;
-                    max = element;
-                    break;
-                }
+            if (element > max) {
                 maxIndex = iterator;
                 max = element;
+                // Don't look for another one, this was the previous max
+                if (element === previousMax) {
+                    break;
+                }
             }
         }
         this.maxIndex = maxIndex;
@@ -109,17 +104,19 @@ class statsArray {
         } else {
             this.n++;
         }
+        this.array[this.index] = num;
+
         if (num <= this.min) {
             this.minIndex = this.index;
             this.min = num;
         } else if (this.minIndex === this.index) {
-            this.computeMin();
+            this.#computeMin();
         }
         if (num >= this.max) {
             this.maxIndex = this.index;
             this.max = num;
         } else if (this.maxIndex === this.index) {
-            this.computeMax();
+            this.#computeMax();
         }
 
         this.sum += num;
@@ -127,7 +124,6 @@ class statsArray {
         this.mean = this.sum / this.n;
         this.q += (num - prevMean) * (num - this.mean);
 
-        this.array[this.index] = num;
         this.index = (this.index + 1) % this.size;
 
         this.nextCompute--;
