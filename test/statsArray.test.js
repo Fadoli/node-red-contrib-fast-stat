@@ -18,6 +18,24 @@ test("statsArray", (t) => {
         t.deepEqual(stat.getStats(), null);
     });
 
+    t.test('Compute data on the go (2 size)', function () {
+        const stat = new StatsArray(2);
+        stat.append(1);
+        t.deepEqual(stat.getStats(), { n: 1, min: 1, max: 1, sum: 1, mean: 1, variance: 0, standard_deviation: 0 });
+        stat.append(0);
+        t.deepEqual(stat.getStats(), { n: 2, min: 0, max: 1, sum: 1, mean: 0.5, variance: 0.25, standard_deviation: 0.5 });
+        t.deepEqual(stat.recompute(), { n: 2, min: 0, max: 1, sum: 1, mean: 0.5, variance: 0.25, standard_deviation: 0.5 });
+    });
+
+    t.test('Compute data on the go (2 same value)', function () {
+        const stat = new StatsArray(2);
+        stat.append(1);
+        t.deepEqual(stat.getStats(), { n: 1, min: 1, max: 1, sum: 1, mean: 1, variance: 0, standard_deviation: 0 });
+        stat.append(1);
+        t.deepEqual(stat.getStats(), { n: 2, min: 1, max: 1, sum: 2, mean: 1, variance: 0, standard_deviation: 0 });
+        t.deepEqual(stat.recompute(), { n: 2, min: 1, max: 1, sum: 2, mean: 1, variance: 0, standard_deviation: 0 });
+    });
+
     t.test('Compute data on the go', function () {
         const stat = new StatsArray(10);
         stat.append(1);
