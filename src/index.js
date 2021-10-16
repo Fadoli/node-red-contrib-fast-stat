@@ -3,7 +3,7 @@ const statsArray = require("./statsArray");
 module.exports = function(RED) {
     function defineNode(config) {
         RED.nodes.createNode(this,config);
-        const nbElem = config.size || 10;
+        const nbElem = 1 * (config.size || '10');
         const node = this;
 
         /**

@@ -3,14 +3,40 @@ const test = require("zora").test;
 
 const node = require('../src/index');
 
-const testFlow = [{"id":"c3c1389c.61bbf","type":"fast_stats","z":"d7d8ed0f.6ee418","name":"","size":"100000","x":800,"y":220,"wires":[["b8fec2a3.b96b6","94abac1b.517518"]]}];
+const testFlow = [
+    { "id": "test_node", "type": "fast_stats", "size": "10", "wires": [["helper_node"]] },
+    { "id": "helper_node", "type": "helper"},
+];
 
-test("statsArray", (t) => {
-    t.test('should not have stats when empty', async () => {
-        await helper.load(node, testFlow);
-        
+test("statsArray", async (t) => {
+    await t.test('Should properly load', async function (t) {
+        await helper.load(node, testFlow, {});
+
         // Do some tests
+        t.deepEqual(!!helper.getNode('test_node'), true);
 
         await helper.unload();
+    });
+
+    await t.test('Should properly load', async function (t) {
+        await helper.load(node, testFlow, {});
+        const nodeInstance = helper.getNode('test_node');
+        nodeInstance.receive({
+            payload: {
+                a: 0,
+                b: 'toto'
+            }
+        })
+        return new Promise((res, rej) => {
+            helper.getNode('helper_node')
+                .on('input', (msg) => {
+                    try {
+                        t.deepEqual(msg.payload, { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 } , "b" : "toto"});
+                        res();
+                    } catch (e) {
+                        rej(e);
+                    }
+                })
+        }).finally(() => helper.unload());
     });
 });
