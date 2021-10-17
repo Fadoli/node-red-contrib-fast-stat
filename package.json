@@ -1,10 +1,12 @@
 {
     "name": "@fadoli/node-red-fast-running-stats",
     "version": "1.0.0",
-    "description": "get data from node-red",
-    "main": "index.js",
+    "description": "A node-red node for fast-running-stats",
     "scripts": {
         "test": "c8 pta"
+    },
+    "dependencies": {
+        "@fadoli/node-fast-running-stats": "^1.0.2"
     },
     "devDependencies": {
         "c8": "7.10.0",

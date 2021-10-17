@@ -1,4 +1,4 @@
-const statsArray = require("./statsArray");
+const statsArray = require("@fadoli/node-fast-running-stats");
 
 module.exports = function(RED) {
     function defineNode(config) {
