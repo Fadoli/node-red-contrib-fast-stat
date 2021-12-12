@@ -1,25 +1,44 @@
 {
     "name": "@fadoli/node-red-fast-running-stats",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A node-red node for fast-running-stats",
+    "keywords": [
+        "node-red",
+        "stats",
+        "running stats",
+        "rolling stats",
+        "min",
+        "max",
+        "mean",
+        "average",
+        "standard deviation"
+    ],
+    "license": "MIT",
+    "author": "https://github.com/Fadoli",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Fadoli/node-red-contrib-fast-stat.git"
+    },
+    "homepage": "https://www.npmjs.com/package/@fadoli/node-red-fast-running-stats",
     "scripts": {
         "test": "c8 pta"
     },
     "dependencies": {
-        "@fadoli/node-fast-running-stats": "^1.0.2"
+        "@fadoli/node-fast-running-stats": "^1.0.3"
     },
     "devDependencies": {
         "c8": "7.10.0",
-        "node-red": "^2.0.0",
+        "node-red": "^2.1.4",
         "node-red-node-test-helper": "0.2.7",
-        "pta": "^1.0.0",
-        "zora": "^5.0.0"
+        "pta": "^1.0.2",
+        "zora": "^5.0.1"
     },
-    "author": "",
-    "license": "ISC",
     "node-red": {
         "nodes": {
             "fast_stat": "./src/index.js"
         }
+    },
+    "engines": {
+        "node": ">=14"
     }
 }

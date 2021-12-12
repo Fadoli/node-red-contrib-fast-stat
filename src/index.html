@@ -11,7 +11,7 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: "file.png",
+        icon: "font-awesome/fa-cogs",
         label: function () {
             return this.name || "fast_stats";
         }
@@ -31,4 +31,31 @@
 
 <script type="text/html" data-help-name="fast_stats">
     <p>A node that compute min/max/avg/variance/std_dev</p>
+    
+    <h3>Configuration</h3>
+    <dl class="message-properties">
+        <dt>Size <span class="property-type">number</span></dt>
+        <dd>
+            The quantity of values for which the statistics are runned on.<br/>
+            It configures how much data will be stored inside a rolling-buffer.
+        </dd>
+    </dl>
+    
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>msg.payload.{field} <span class="property-type">number</span></dt>
+        <dd>
+            Any field of type number will be processed. <br/>
+            Others will just be passed to the output object
+        </dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload.{field}<span class="property-type">object</span></dt>
+        <dd>
+            For each inputed number fields, an object is set in the outputed payload.<br />
+            { "n":1 , "min":1 , "max":1 , "sum":1 , "mean":1 , "variance":0 , "standard_deviation":0 }
+        </dd>
+    </dl>
 </script>
