@@ -5,8 +5,9 @@ This is a node-red node for computing running (or rolling) statistics for each `
 Requires node 14 or more recent.
 
 Can be found on :
-* [npm](https://www.npmjs.com/package/@fadoli/node-fast-running-stats)
-* [github](https://www.npmjs.com/package/@fadoli/node-red-fast-running-stats)
+
+* [npm](https://www.npmjs.com/package/@fadoli/node-red-fast-running-stats)
+* [github](https://github.com/Fadoli/node-red-contrib-fast-stat)
 
 ## Performance and expected outputs
 
@@ -38,7 +39,7 @@ OUTPUT
 
 ## Coverage
 
-File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ----------|---------|----------|---------|---------|-------------------
-All files |     100 |      100 |     100 |     100 |                   
- index.js |     100 |      100 |     100 |     100 |                   
+All files |     100 |      100 |     100 |     100 |
+ index.js |     100 |      100 |     100 |     100 |
