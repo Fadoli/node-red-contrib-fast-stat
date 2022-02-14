@@ -11,24 +11,39 @@ module.exports = function(RED) {
          * @type {Object.<string,statsArray>}
          */
         const elements = {};
-        node.on('input', (msg,send,done) => {
-            const keys = Object.keys(msg.payload);
-            const result = {};
+
+        function handleValue(key, value) {
+            if (!elements[key]) {
+                elements[key] = new statsArray(nbElem); 
+            }
+            return elements[key].append(value).getStats();
+        }
+        function handleObject(obj, prefix = '') {
+            const keys = Object.keys(obj);
             keys.forEach((key) => {
-                const value = msg.payload[key];
+                const completeKey = `${prefix}${key}`
+                const value = obj[key];
                 if (typeof value === 'number') {
-                    if (!elements[key]) {
-                        elements[key] = new statsArray(nbElem);
-                    }
-                    elements[key].append(value);
-                    result[key] = elements[key].getStats();
-                } else {
-                    result[key] = value;
+                    obj[key] = handleValue(completeKey, value);
+                } else if (typeof value === 'object') {
+                    handleObject(obj[key], `${completeKey}.`);
                 }
             })
-            msg.payload = result;
-            send(msg);
-            done();
+            return;
+        }
+
+        node.on('input', (msg,send,done) => {
+            try {
+                if (typeof msg.payload === "object") {
+                    handleObject(msg.payload);
+                } else if (typeof msg.payload === "number") {
+                    msg.payload = handleValue("payload", msg.payload);
+                }
+                send(msg);
+                done();
+            } catch (e) {
+                done(e);
+            }
         })
     }
     RED.nodes.registerType("fast_stats",defineNode);
