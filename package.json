@@ -21,12 +21,14 @@
     },
     "homepage": "https://www.npmjs.com/package/@fadoli/node-red-fast-running-stats",
     "scripts": {
-        "test": "c8 pta"
+        "test": "c8 pta ./test/**.test.js",
+        "test:bun": "bun test --coverage"
     },
     "dependencies": {
         "@fadoli/node-fast-running-stats": "^1.0.4"
     },
     "devDependencies": {
+        "bun-red-test-helper": "../bun-red-test-helper/",
         "c8": "^7.10.0",
         "node-red": "^3.0.0",
         "node-red-node-test-helper": "0.3.0",
