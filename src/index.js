@@ -12,6 +12,12 @@ module.exports = function(RED) {
          */
         const elements = {};
 
+        /**
+         * @description This function will handle the value of a key in an object, and return its stats
+         * @param {string} key - The key to be handled
+         * @param {number} value - The value to be appended to the statsArray
+         * @returns {Object} The stats of the statsArray
+         */
         function handleValue(key, value) {
             if (!elements[key]) {
                 elements[key] = new statsArray(nbElem); 
