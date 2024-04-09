@@ -1,10 +1,10 @@
 const statsArray = require("@fadoli/node-fast-running-stats");
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     function defineNode(config) {
-        RED.nodes.createNode(this,config);
-        const nbElem = 1 * (config.size || '10');
         const node = this;
+        RED.nodes.createNode(node, config);
+        const nbElem = 1 * (config.size || '10');
 
         /**
          * This is a map for each numerical value in the payload, we will have a statsArray object
@@ -20,10 +20,15 @@ module.exports = function(RED) {
          */
         function handleValue(key, value) {
             if (!elements[key]) {
-                elements[key] = new statsArray(nbElem); 
+                elements[key] = new statsArray(nbElem);
             }
             return elements[key].append(value).getStats();
         }
+        /**
+         * @description This function will handle an object and inject the results back into the object
+         * @param {Object} obj 
+         * @param {string} prefix 
+         */
         function handleObject(obj, prefix = '') {
             const keys = Object.keys(obj);
             keys.forEach((key) => {
@@ -35,10 +40,9 @@ module.exports = function(RED) {
                     handleObject(obj[key], `${completeKey}.`);
                 }
             })
-            return;
         }
 
-        node.on('input', (msg,send,done) => {
+        node.on('input', (msg, send, done) => {
             try {
                 if (typeof msg.payload === "object") {
                     handleObject(msg.payload);
@@ -52,5 +56,5 @@ module.exports = function(RED) {
             }
         })
     }
-    RED.nodes.registerType("fast_stats",defineNode);
+    RED.nodes.registerType("fast_stats", defineNode);
 }
