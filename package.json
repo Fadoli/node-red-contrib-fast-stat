@@ -21,17 +21,15 @@
     },
     "homepage": "https://www.npmjs.com/package/@fadoli/node-red-fast-running-stats",
     "scripts": {
-        "test": "c8 pta"
+        "test": "node --experimental-test-coverage --test --test-reporter=spec",
+        "test:bun": "bun test --coverage"
     },
     "dependencies": {
-        "@fadoli/node-fast-running-stats": "^1.0.4"
+        "@fadoli/node-fast-running-stats": "^2.0.0"
     },
     "devDependencies": {
-        "c8": "^9.1.0",
-        "node-red": "^3.0.0",
-        "node-red-node-test-helper": "^0.3.0",
-        "pta": "^1.0.2",
-        "zora": "^5.0.1"
+        "node-red": "^4.0.5",
+        "node-red-node-test-helper": "^0.3.0"
     },
     "node-red": {
         "nodes": {
@@ -39,6 +37,6 @@
         }
     },
     "engines": {
-        "node": ">=16"
+        "node": ">=18.17.0"
     }
 }

@@ -1,6 +1,14 @@
-const helper = require('node-red-node-test-helper');
-const test = require("zora").test;
+let describe, it;
+if (typeof Bun !== 'undefined') {
+    describe = require('bun:test').describe;
+    it = require('bun:test').test;
+} else {
+    describe = require('node:test').describe;
+    it = require('node:test').it;
+}
+const assert = require('assert');
 
+const helper = require('node-red-node-test-helper');
 const node = require('../src/index');
 
 const testFlow = [
@@ -12,17 +20,17 @@ const testFlowDefaultSize = [
     { "id": "helper_node", "type": "helper" },
 ];
 
-test("statsArray", async (t) => {
-    await t.test('Should properly load', async function (t) {
+describe("statsArray", () => {
+    it('Should properly load', async () => {
         await helper.load(node, testFlow, {});
 
         // Do some tests
-        t.deepEqual(!!helper.getNode('test_node'), true);
+        assert.deepEqual(!!helper.getNode('test_node'), true);
 
         await helper.unload();
     });
 
-    await t.test('Should properly work', async function (t) {
+    it('Should properly work', async () => {
         await helper.load(node, testFlow, {});
         const nodeInstance = helper.getNode('test_node');
         nodeInstance.receive({
@@ -35,7 +43,7 @@ test("statsArray", async (t) => {
             helper.getNode('helper_node')
                 .on('input', (msg) => {
                     try {
-                        t.deepEqual(msg.payload, { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 }, "b": "toto" });
+                        assert.deepEqual(msg.payload, { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 }, "b": "toto" });
                         res();
                     } catch (e) {
                         rej(e);
@@ -44,7 +52,7 @@ test("statsArray", async (t) => {
         }).finally(() => helper.unload());
     });
 
-    await t.test('Should properly work with no size', async function (t) {
+    it('Should properly work with no size', async () => {
         await helper.load(node, testFlowDefaultSize, {});
         const nodeInstance = helper.getNode('test_node');
         nodeInstance.receive({
@@ -57,7 +65,7 @@ test("statsArray", async (t) => {
             helper.getNode('helper_node')
                 .on('input', (msg) => {
                     try {
-                        t.deepEqual(msg.payload, { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 }, "b": "toto" });
+                        assert.deepEqual(msg.payload, { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 }, "b": "toto" });
                         res();
                     } catch (e) {
                         rej(e);
@@ -66,7 +74,7 @@ test("statsArray", async (t) => {
         }).finally(() => helper.unload());
     });
 
-    await t.test('Should properly handle object recursively', async function (t) {
+    it('Should properly handle object recursively', async () => {
         await helper.load(node, testFlowDefaultSize, {});
         const nodeInstance = helper.getNode('test_node');
         nodeInstance.receive({
@@ -81,7 +89,7 @@ test("statsArray", async (t) => {
             helper.getNode('helper_node')
                 .on('input', (msg) => {
                     try {
-                        t.deepEqual(msg.payload, { "obj": { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 } }, "b": "toto" });
+                        assert.deepEqual(msg.payload, { "obj": { "a": { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 } }, "b": "toto" });
                         res();
                     } catch (e) {
                         rej(e);
@@ -90,7 +98,7 @@ test("statsArray", async (t) => {
         }).finally(() => helper.unload());
     });
 
-    await t.test('Should properly handle simple values', async function (t) {
+    it('Should properly handle simple values', async () => {
         await helper.load(node, testFlowDefaultSize, {});
         const nodeInstance = helper.getNode('test_node');
         nodeInstance.receive({
@@ -100,7 +108,7 @@ test("statsArray", async (t) => {
             helper.getNode('helper_node')
                 .on('input', (msg) => {
                     try {
-                        t.deepEqual(msg.payload, { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 });
+                        assert.deepEqual(msg.payload, { "n": 1, "min": 0, "max": 0, "sum": 0, "mean": 0, "variance": 0, "standard_deviation": 0 });
                         res();
                     } catch (e) {
                         rej(e);
@@ -109,7 +117,7 @@ test("statsArray", async (t) => {
         }).finally(() => helper.unload());
     });
 
-    await t.test('Should properly handle array', async function (t) {
+    it('Should properly handle array', async () => {
         await helper.load(node, testFlowDefaultSize, {});
         const nodeInstance = helper.getNode('test_node');
         nodeInstance.receive({
@@ -121,7 +129,7 @@ test("statsArray", async (t) => {
             helper.getNode('helper_node')
                 .on('input', (msg) => {
                     try {
-                        t.deepEqual(msg.payload, {
+                        assert.deepEqual(msg.payload, {
                             "myArray": [
                                 {
                                     "max": 0,

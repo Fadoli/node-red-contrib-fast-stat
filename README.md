@@ -39,7 +39,6 @@ OUTPUT
 
 ## Coverage
 
-File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-----------|---------|----------|---------|---------|-------------------
-All files |      96 |    92.85 |     100 |      96 |
- index.js |      96 |    92.85 |     100 |      96 | 45-46
+| File          | Line % | Branch % | Funcs % | Uncovered Lines |
+|---------------|--------|----------|---------|-----------------|
+| src\index.js  |  96.67 |    92.86 |  100.00 | 55-56           |
