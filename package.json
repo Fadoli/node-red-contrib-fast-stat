@@ -1,6 +1,6 @@
 {
     "name": "@fadoli/node-red-fast-running-stats",
-    "version": "1.0.2",
+    "version": "2.0.0",
     "description": "A node-red node for fast-running-stats",
     "keywords": [
         "node-red",
