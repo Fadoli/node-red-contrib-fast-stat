@@ -28,7 +28,7 @@
         "@fadoli/node-fast-running-stats": "^2.0.0"
     },
     "devDependencies": {
-        "node-red": "^4.0.5",
+        "node-red": "^4.0.2",
         "node-red-node-test-helper": "^0.3.0"
     },
     "node-red": {
@@ -37,6 +37,6 @@
         }
     },
     "engines": {
-        "node": ">=18.17.0"
+        "node": ">=22.0.0"
     }
 }
